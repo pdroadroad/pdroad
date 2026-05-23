@@ -24,7 +24,7 @@
       --white-dim: rgba(255,255,255,0.85);
       --white-faint: rgba(255,255,255,0.15);
       --text-on-navy: rgba(255,255,255,0.9);
-      --text-muted: rgba(255,255,255,0.55);
+      --text-muted: rgba(255,255,255,0.72);
       --font-display: 'Cormorant Garamond', serif;
       --font-body: 'Noto Serif TC', serif;
       --font-ui: 'DM Sans', sans-serif;
@@ -236,12 +236,12 @@
 
     .hero-sub {
       font-family: var(--font-body);
-      font-size: 1.05rem;
+      font-size: 1.12rem;
       font-weight: 300;
       line-height: 1.8;
       color: var(--text-muted);
       margin-bottom: 2.5rem;
-      max-width: 400px;
+      max-width: 470px;
     }
 
     .hero-actions {
@@ -540,9 +540,9 @@
     }
 
     .about-text p {
-      font-size: 1rem;
+      font-size: 1.04rem;
       line-height: 1.95;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.84);
       margin-bottom: 1.3rem;
       font-weight: 300;
     }
@@ -646,9 +646,9 @@
     }
 
     .service-body {
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       line-height: 1.85;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.72);
       font-weight: 300;
       margin-bottom: 1.5rem;
     }
@@ -673,6 +673,42 @@
       content: '✦';
       font-size: 0.5rem;
       color: var(--rose);
+    }
+
+
+    /* ── AUDIENCE ── */
+    #audience {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--white-faint);
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .audience-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--white-faint);
+      border-radius: 18px;
+      padding: 2rem 1.8rem;
+    }
+
+    .audience-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .audience-card p {
+      font-size: 0.92rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.72);
+      font-weight: 300;
     }
 
     /* ── PROCESS ── */
@@ -1120,6 +1156,7 @@
       .about-portrait { max-width: 200px; }
 
       .services-grid { grid-template-columns: 1fr; }
+      .audience-grid { grid-template-columns: 1fr; }
 
       .process-steps { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
       .process-steps::before { display: none; }
@@ -1175,18 +1212,18 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-left">
-    <p class="hero-tag">職涯諮詢師</p>
+    <p class="hero-tag">職涯諮詢師 × 課程企劃背景</p>
     <h1 class="hero-h1">
-      你知道自己<br/>
-      <em>想要什麼</em>嗎？
+      陪你整理混亂，<br/>
+      找到下一步的<em>職涯方向</em>
     </h1>
     <p class="hero-sub">
-      很多人卡關，不是因為能力不夠，<br/>
-      而是還沒問過自己這個問題。<br/>
-      我是 road，用提問陪你找到答案。
+      如果你做過很多事，卻說不清自己的優勢；
+      或正卡在轉職、履歷、面試與方向選擇之間，
+      我會用提問與整理，陪你把模糊變清楚。
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">預約免費諮詢 →</a>
+      <a href="#contact" class="btn-primary">預約諮詢 →</a>
       <a href="#service" class="btn-ghost">了解服務</a>
     </div>
   </div>
@@ -1199,7 +1236,7 @@
         class="hero-photo"
       />
       <div class="hero-badge">✦ CNC 職涯導航諮詢師</div>
-      <div class="hero-badge-2">17 年實務經驗</div>
+      <div class="hero-badge-2">活動企劃 × 課程專案 × 職涯整理</div>
     </div>
   </div>
 
@@ -1239,11 +1276,11 @@
 
       <div class="about-text">
         <p class="section-label fade-up">關於我</p>
-        <h2 class="section-title fade-up">嗨，我是 <em>road</em>，<br/>也可以叫我小路</h2>
+        <h2 class="section-title fade-up">嗨，我是 <em>Road</em>，<br/>也可以叫我小路</h2>
         <div class="fade-up">
-          <p>我不會告訴你「應該做什麼」——而是透過一個又一個問題，幫你把心裡已經有的答案挖出來。過去擔任藝術節目與線上課程製作人的六年，讓我練就了一件事：把混亂的思緒，整理成清晰的脈絡。</p>
-          <p>我曾在公部門、傳產大企業、新創小公司各待過，親身體驗過迷茫、轉換、重新出發。所以當你說「不知道自己適合什麼」，我不只是理解——我真的待過那個位置。</p>
-          <p>諮詢對我來說，是一種探索的過程。你不需要在見我之前就想清楚，那正是我們要一起做的事。</p>
+          <p>我曾在藝文行政、企業講座與線上課程平台工作，長期做的事，是把複雜的內容整理成更容易理解、也更能前進的方向。這也是我後來走向職涯諮詢的重要原因。</p>
+          <p>在 Hahow 的四年多裡，我參與超過 65 堂課程專案；更早之前，也在公部門、傳產大企業與新創公司之間工作過。這些經驗讓我不只理解理想，也理解現實中的組織、主管、產業與轉換成本。</p>
+          <p>如果你正卡在「做過很多事，卻講不清自己是誰」、想轉職卻沒有把握，或履歷與面試始終說不出真正的亮點，我很願意陪你一起整理。</p>
         </div>
         <div class="about-tags fade-up fade-up-delay-1">
           <span class="tag tag-rose">CNC 職涯導航諮詢師</span>
@@ -1257,13 +1294,40 @@
   </div>
 </section>
 
+
+<!-- AUDIENCE -->
+<section id="audience">
+  <div class="section-inner">
+    <div class="service-header fade-up">
+      <p class="section-label">適合對象</p>
+      <h2 class="section-title">這些狀態的你，<br/><em>很適合來談</em></h2>
+      <p class="service-desc">我特別適合陪伴做過很多事、腦中有很多想法，卻還沒整理出下一步的人。
+      </p>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card fade-up fade-up-delay-1">
+        <h3>轉職卡住</h3>
+        <p>明明想離開現在的位置，卻不知道下一步該往哪裡走，也不確定自己的經驗能轉成什麼價值。</p>
+      </div>
+      <div class="audience-card fade-up fade-up-delay-2">
+        <h3>履歷說不清楚</h3>
+        <p>做過很多工作與專案，卻不知道怎麼整理成一條清楚的主線，履歷與面試總是少了一口氣。</p>
+      </div>
+      <div class="audience-card fade-up fade-up-delay-3">
+        <h3>方向很多，很難決定</h3>
+        <p>你不是沒有選項，而是選項太多；你需要的不是別人替你決定，而是更清楚看見自己真正重視什麼。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SERVICE -->
 <section id="service">
   <div class="section-inner">
     <div class="service-header fade-up">
       <p class="section-label">我的服務</p>
-      <h2 class="section-title">你現在卡在<br/><em>哪個環節</em>？</h2>
-      <p class="service-desc">履歷寫不出亮點、面試說不清楚自己、還是根本不知道想去哪？每個卡關的位置，都有對應的方式可以處理。</p>
+      <h2 class="section-title">你現在卡住的，<br/><em>不一定只是履歷</em></h2>
+      <p class="service-desc">有人卡在履歷，有人卡在面試，也有人其實是卡在還沒看清自己要往哪裡走。我會依照你的問題所在，陪你一起拆解。</p>
     </div>
 
     <div class="services-grid">
@@ -1346,9 +1410,9 @@
     <div class="trust-grid">
       <div class="trust-left fade-up">
         <p class="section-label">為什麼選擇我</p>
-        <h2 class="section-title">我不給答案，<br/>我陪你<em>找到</em>答案</h2>
+        <h2 class="section-title">我不是只陪你聊聊，<br/>而是陪你<em>整理出方向</em></h2>
         <p class="trust-desc">
-          最好的職涯決定，必須來自你自己的理解——而不是別人告訴你「應該這樣做」。我的工作，是用提問幫你把已經在心裡、但還沒說清楚的東西，一起挖出來。
+          我不只會提問，也會結合多年課程企劃、專案管理與組織工作經驗，陪你把價值觀、能力、履歷敘事與現實條件一起整理。你帶走的不只是被理解，而是更清楚的判斷。
         </p>
         <div class="trust-items">
           <div class="trust-item">
@@ -1399,9 +1463,9 @@
     <div class="contact-inner">
       <div class="contact-left fade-up">
         <p class="section-label">聯絡我</p>
-        <h2 class="section-title">還不確定？<br/><em>那就先寫來</em></h2>
+        <h2 class="section-title">準備好了嗎？<br/><em>從一封信開始</em></h2>
         <p class="contact-desc">
-          不需要想清楚才能聯絡我。就算只是一種說不清楚的卡住感，也可以寫下來——釐清，本來就是我們一起做的事。
+          不需要完全整理好才來找我。你只要先描述現在的卡點，我會陪你一起判斷最適合從哪裡開始。
         </p>
         <div class="contact-details">
           <a href="mailto:pd.roadwu@gmail.com" class="contact-link">
@@ -1415,7 +1479,7 @@
       </div>
 
       <div class="contact-form fade-up fade-up-delay-1">
-        <h3 class="form-title">預約諮詢，從這裡開始</h3>
+        <h3 class="form-title">填寫表單，讓我先認識你</h3>
         <div class="form-group">
           <label for="name">你的稱呼</label>
           <input type="text" id="name" placeholder="請輸入你的名字或暱稱" />
@@ -1431,7 +1495,7 @@
             <option>履歷健檢</option>
             <option>模擬面試</option>
             <option>一對一職涯諮詢</option>
-            <option>還不確定，想先聊聊</option>
+            <option>還不確定，想先描述我的狀況</option>
           </select>
         </div>
         <div class="form-group">
@@ -1447,7 +1511,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">road<span>.</span></div>
-  <div class="footer-copy">© 2025 Road Wu｜職涯諮詢師｜用提問，陪你找到屬於你的路</div>
+  <div class="footer-copy">© 2025 Road Wu｜職涯諮詢師｜陪你整理混亂，找到下一步</div>
 </footer>
 
 <script>
