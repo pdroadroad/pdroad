@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Road Wu｜職涯諮詢師</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --navy: #1a2744;
+      --navy-deep: #111b34;
+      --navy-mid: #243054;
+      --rose: #e8b4b8;
+      --rose-light: #f2d0d3;
+      --lavender: #c9b8d8;
+      --lavender-light: #ddd3ea;
+      --sage: #b8cfc4;
+      --cream: #faf6f1;
+      --cream-warm: #f5ede4;
+      --white: #ffffff;
+      --white-dim: rgba(255,255,255,0.85);
+      --white-faint: rgba(255,255,255,0.15);
+      --text-on-navy: rgba(255,255,255,0.9);
+      --text-muted: rgba(255,255,255,0.55);
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Noto Serif TC', serif;
+      --font-ui: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--navy-deep);
+      color: var(--text-on-navy);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 900;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(12px);
+      background: rgba(17,27,52,0.6);
+      border-bottom: 1px solid var(--white-faint);
+      transition: background 0.4s;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--rose); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      text-transform: uppercase;
+    }
+
+    .nav-links a:hover { color: var(--rose-light); }
+
+    .nav-cta {
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--navy-deep) !important;
+      background: var(--rose);
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--rose-light); transform: translateY(-1px); }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--navy-deep);
+      z-index: 800;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      opacity: 0.85;
+      transition: color 0.2s;
+    }
+
+    .mobile-menu a:hover { color: var(--rose); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 5vw 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background decorative blobs */
+    #hero::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201,184,216,0.12) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      border-radius: 50%;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(232,180,184,0.1) 0%, transparent 70%);
+      bottom: 50px;
+      left: -80px;
+      border-radius: 50%;
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+    }
+
+    .hero-tag {
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--rose);
+    }
+
+    .hero-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--rose-light);
+    }
+
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 400px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--navy-deep);
+      background: var(--rose);
+      padding: 0.85rem 2rem;
+      border-radius: 3rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-primary:hover { background: var(--rose-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,180,184,0.3); }
+
+    .btn-ghost {
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--white-dim);
+      border: 1px solid var(--white-faint);
+      padding: 0.85rem 2rem;
+      border-radius: 3rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.4); background: var(--white-faint); }
+
+    /* Hero right - illustration */
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-illustration {
+      position: relative;
+      width: 380px;
+      height: 420px;
+    }
+
+    /* Browser window mockup */
+    .browser-card {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 320px;
+      height: 280px;
+      background: var(--navy-mid);
+      border-radius: 16px;
+      border: 1px solid var(--white-faint);
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+    }
+
+    .browser-bar {
+      background: rgba(255,255,255,0.06);
+      padding: 0.7rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--white-faint);
+    }
+
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-r { background: var(--rose); }
+    .dot-y { background: #f0d48a; }
+    .dot-g { background: var(--sage); }
+
+    .browser-url {
+      flex: 1;
+      height: 22px;
+      background: var(--white-faint);
+      border-radius: 4px;
+      margin-left: 0.5rem;
+    }
+
+    .browser-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .bc-line {
+      height: 10px;
+      border-radius: 5px;
+      background: linear-gradient(90deg, var(--rose) 0%, var(--lavender) 100%);
+      opacity: 0.7;
+    }
+
+    .bc-line-short { width: 60%; }
+
+    .bc-blocks {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .bc-block {
+      height: 48px;
+      border-radius: 8px;
+    }
+
+    .bc-rose { background: rgba(232,180,184,0.35); }
+    .bc-lav { background: rgba(201,184,216,0.35); }
+    .bc-sage { background: rgba(184,207,196,0.35); }
+    .bc-cream { background: rgba(242,208,211,0.2); }
+
+    /* Sun character */
+    .sun-char {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 110px;
+      height: 110px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* Floating badge */
+    .hero-badge {
+      position: absolute;
+      top: 130px;
+      left: -20px;
+      background: var(--lavender);
+      color: var(--navy-deep);
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.6rem 1rem;
+      border-radius: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      white-space: nowrap;
+      animation: float 5s ease-in-out infinite;
+      animation-delay: -1s;
+    }
+
+    .hero-badge-2 {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      background: rgba(232,180,184,0.2);
+      border: 1px solid var(--rose);
+      color: var(--rose-light);
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      font-weight: 400;
+      padding: 0.5rem 0.9rem;
+      border-radius: 2rem;
+      white-space: nowrap;
+      animation: float 6s ease-in-out infinite;
+      animation-delay: -2s;
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      z-index: 2;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, var(--rose), transparent);
+      animation: scrollDown 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollDown {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── SHARED SECTION STYLES ── */
+    section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 7rem 2.5rem;
+    }
+
+    .section-label {
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--rose);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--rose-light);
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--white-faint);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-portrait {
+      width: 100%;
+      aspect-ratio: 3/4;
+      max-width: 320px;
+      background: linear-gradient(135deg, rgba(232,180,184,0.15), rgba(201,184,216,0.1));
+      border-radius: 16px;
+      border: 1px solid var(--white-faint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 6rem;
+      font-weight: 300;
+      color: rgba(232,180,184,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-portrait::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(201,184,216,0.15));
+    }
+
+    .about-deco {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 80px;
+      height: 80px;
+      border: 1px solid var(--rose);
+      border-radius: 50%;
+      opacity: 0.3;
+    }
+
+    .about-deco-2 {
+      position: absolute;
+      bottom: -15px;
+      left: -15px;
+      width: 50px;
+      height: 50px;
+      border: 1px solid var(--lavender);
+      border-radius: 50%;
+      opacity: 0.4;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .stat-pill {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--white-faint);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--rose-light);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-top: 0.2rem;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 1.3rem;
+      font-weight: 300;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .tag {
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 2rem;
+      letter-spacing: 0.04em;
+    }
+
+    .tag-rose { background: rgba(232,180,184,0.15); color: var(--rose-light); border: 1px solid rgba(232,180,184,0.3); }
+    .tag-lav { background: rgba(201,184,216,0.15); color: var(--lavender-light); border: 1px solid rgba(201,184,216,0.3); }
+    .tag-sage { background: rgba(184,207,196,0.15); color: var(--sage); border: 1px solid rgba(184,207,196,0.3); }
+
+    /* ── SERVICE ── */
+    #service {
+      background: var(--navy-deep);
+    }
+
+    .service-header {
+      max-width: 500px;
+      margin-bottom: 4rem;
+    }
+
+    .service-desc {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      margin-top: 1rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--white-faint);
+      border-radius: 20px;
+      padding: 2.2rem;
+      transition: all 0.35s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 20px 20px 0 0;
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .service-card:nth-child(1)::before { background: linear-gradient(90deg, var(--rose), var(--rose-light)); }
+    .service-card:nth-child(2)::before { background: linear-gradient(90deg, var(--lavender), var(--lavender-light)); }
+    .service-card:nth-child(3)::before { background: linear-gradient(90deg, var(--sage), #d0e4dc); }
+
+    .service-card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .si-rose { background: rgba(232,180,184,0.15); }
+    .si-lav { background: rgba(201,184,216,0.15); }
+    .si-sage { background: rgba(184,207,196,0.15); }
+
+    .service-name {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.01em;
+    }
+
+    .service-body {
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .service-features li {
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .service-features li::before {
+      content: '✦';
+      font-size: 0.5rem;
+      color: var(--rose);
+    }
+
+    /* ── PROCESS ── */
+    #process {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--white-faint);
+    }
+
+    .process-header {
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto 5rem;
+    }
+
+    .process-desc {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      margin-top: 1rem;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--rose), var(--lavender), var(--sage), var(--rose-light));
+      opacity: 0.4;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 1.5rem;
+      position: relative;
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 1px solid var(--white-faint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 2;
+      background: var(--navy-mid);
+    }
+
+    .step:nth-child(1) .step-num { border-color: var(--rose); color: var(--rose-light); }
+    .step:nth-child(2) .step-num { border-color: var(--lavender); color: var(--lavender-light); }
+    .step:nth-child(3) .step-num { border-color: var(--sage); color: var(--sage); }
+    .step:nth-child(4) .step-num { border-color: var(--rose-light); color: var(--rose-light); }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.7rem;
+    }
+
+    .step-body {
+      font-size: 0.83rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.55);
+      font-weight: 300;
+    }
+
+    /* ── TRUST ── */
+    #trust {
+      background: var(--navy-deep);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .trust-left .section-title { margin-bottom: 1.5rem; }
+
+    .trust-desc {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.65);
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+
+    .trust-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .trust-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(232,180,184,0.1);
+      border: 1px solid rgba(232,180,184,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .trust-item-text h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+
+    .trust-item-text p {
+      font-size: 0.83rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Testimonial placeholder area */
+    .trust-right {
+      position: relative;
+    }
+
+    .testimonial-placeholder {
+      background: var(--navy-mid);
+      border: 1px solid var(--white-faint);
+      border-radius: 20px;
+      padding: 2.5rem;
+      position: relative;
+    }
+
+    .testimonial-placeholder::before {
+      content: '"';
+      position: absolute;
+      top: 1rem;
+      left: 2rem;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--rose);
+      opacity: 0.2;
+      line-height: 1;
+    }
+
+    .coming-soon-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(232,180,184,0.1);
+      border: 1px solid rgba(232,180,184,0.25);
+      color: var(--rose-light);
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.8rem;
+      border-radius: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .testimonial-placeholder p {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .testimonial-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--rose);
+      margin: 1.5rem 0;
+      opacity: 0.4;
+    }
+
+    .testimonial-cta-text {
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+    }
+
+    .trust-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .value-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .value-chip::before { content: '◆'; font-size: 0.4rem; color: var(--lavender); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--white-faint);
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-left .section-title { margin-bottom: 1rem; }
+
+    .contact-desc {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      padding: 0.8rem;
+      border-radius: 12px;
+      margin-left: -0.8rem;
+    }
+
+    .contact-link:hover { background: var(--white-faint); }
+
+    .contact-link-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(232,180,184,0.1);
+      border: 1px solid rgba(232,180,184,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .contact-link-text {
+      font-family: var(--font-ui);
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .contact-link-label {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.1rem;
+    }
+
+    /* Contact form */
+    .contact-form {
+      background: var(--navy-deep);
+      border: 1px solid var(--white-faint);
+      border-radius: 20px;
+      padding: 2.5rem;
+    }
+
+    .form-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 0.5rem;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--white-faint);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); }
+    input:focus, textarea:focus, select:focus { border-color: rgba(232,180,184,0.5); }
+
+    textarea { resize: none; min-height: 110px; }
+
+    select option { background: var(--navy-mid); }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--rose);
+      color: var(--navy-deep);
+      border: none;
+      padding: 1rem;
+      border-radius: 10px;
+      font-family: var(--font-ui);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover { background: var(--rose-light); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(232,180,184,0.25); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy-deep);
+      border-top: 1px solid var(--white-faint);
+      padding: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-logo span { color: var(--rose); }
+
+    .footer-copy {
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FADE IN ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up-delay-1 { transition-delay: 0.1s; }
+    .fade-up-delay-2 { transition-delay: 0.2s; }
+    .fade-up-delay-3 { transition-delay: 0.3s; }
+    .fade-up-delay-4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      #hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 7rem;
+      }
+
+      .hero-left { max-width: 100%; }
+
+      .hero-tag { justify-content: center; }
+
+      .hero-actions { justify-content: center; }
+
+      .hero-sub { margin: 0 auto 2.5rem; }
+
+      .hero-right { display: none; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+      .about-portrait { max-width: 200px; }
+
+      .services-grid { grid-template-columns: 1fr; }
+
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .process-steps::before { display: none; }
+
+      .trust-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .section-inner { padding: 5rem 1.5rem; }
+
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 540px) {
+      .hero-h1 { font-size: 2.8rem; }
+      .process-steps { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .trust-values { grid-template-columns: 1fr; }
+      .contact-form { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">road<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">關於我</a></li>
+    <li><a href="#service">服務</a></li>
+    <li><a href="#process">流程</a></li>
+    <li><a href="#trust">為什麼選擇我</a></li>
+    <li><a href="#contact" class="nav-cta">預約諮詢</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="開啟選單">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobile()">關於我</a>
+  <a href="#service" onclick="closeMobile()">服務</a>
+  <a href="#process" onclick="closeMobile()">諮詢流程</a>
+  <a href="#trust" onclick="closeMobile()">為什麼選我</a>
+  <a href="#contact" onclick="closeMobile()" style="color:var(--rose)">預約諮詢</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-tag">職涯諮詢師</p>
+    <h1 class="hero-h1">
+      你知道自己<br/>
+      <em>想要什麼</em>嗎？
+    </h1>
+    <p class="hero-sub">
+      很多人卡關，不是因為能力不夠，<br/>
+      而是還沒問過自己這個問題。<br/>
+      我是 road，用提問陪你找到答案。
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">預約免費諮詢 →</a>
+      <a href="#service" class="btn-ghost">了解服務</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-illustration">
+      <!-- Browser card -->
+      <div class="browser-card">
+        <div class="browser-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <div class="browser-url"></div>
+        </div>
+        <div class="browser-content">
+          <div class="bc-line" style="width:75%"></div>
+          <div class="bc-line bc-line-short" style="background: linear-gradient(90deg, var(--lavender), #ddd3ea);"></div>
+          <div class="bc-blocks">
+            <div class="bc-block bc-rose"></div>
+            <div class="bc-block bc-lav"></div>
+            <div class="bc-block bc-sage"></div>
+            <div class="bc-block bc-cream"></div>
+          </div>
+          <div class="bc-line" style="width:45%; background: linear-gradient(90deg, var(--sage), #d0e4dc); opacity:0.5;"></div>
+        </div>
+      </div>
+
+      <!-- Floating badges -->
+      <div class="hero-badge">✦ CNC 職涯導航諮詢師</div>
+      <div class="hero-badge-2">17 年實務經驗</div>
+
+      <!-- Sun character SVG -->
+      <svg class="sun-char" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+        <!-- Rays -->
+        <line x1="55" y1="8" x2="55" y2="18" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
+        <line x1="55" y1="92" x2="55" y2="102" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
+        <line x1="8" y1="55" x2="18" y2="55" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
+        <line x1="92" y1="55" x2="102" y2="55" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
+        <line x1="21" y1="21" x2="28" y2="28" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
+        <line x1="82" y1="82" x2="89" y2="89" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
+        <line x1="89" y1="21" x2="82" y2="28" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
+        <line x1="21" y1="89" x2="28" y2="82" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
+        <!-- Sun body -->
+        <circle cx="55" cy="55" r="28" fill="#f2d0d3"/>
+        <!-- Face -->
+        <circle cx="47" cy="50" r="2.5" fill="#1a2744"/>
+        <circle cx="63" cy="50" r="2.5" fill="#1a2744"/>
+        <path d="M 45 61 Q 55 70 65 61" stroke="#1a2744" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Blush -->
+        <circle cx="42" cy="60" r="4" fill="#e8b4b8" opacity="0.5"/>
+        <circle cx="68" cy="60" r="4" fill="#e8b4b8" opacity="0.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual fade-up">
+        <div class="about-portrait">R</div>
+        <div class="about-deco"></div>
+        <div class="about-deco-2"></div>
+        <div class="about-stats">
+          <div class="stat-pill">
+            <div class="stat-num">17</div>
+            <div class="stat-label">年活動企劃經驗</div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-num">6</div>
+            <div class="stat-label">年線上課程製作</div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-num">3+</div>
+            <div class="stat-label">種組織文化歷練</div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-num">碩士</div>
+            <div class="stat-label">北藝大藝術行政</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <p class="section-label fade-up">關於我</p>
+        <h2 class="section-title fade-up">嗨，我是 <em>road</em>，<br/>也可以叫我小路</h2>
+        <div class="fade-up">
+          <p>我不會告訴你「應該做什麼」——而是透過一個又一個問題，幫你把心裡已經有的答案挖出來。過去擔任藝術節目與線上課程製作人的六年，讓我練就了一件事：把混亂的思緒，整理成清晰的脈絡。</p>
+          <p>我曾在公部門、傳產大企業、新創小公司各待過，親身體驗過迷茫、轉換、重新出發。所以當你說「不知道自己適合什麼」，我不只是理解——我真的待過那個位置。</p>
+          <p>諮詢對我來說，是一種探索的過程。你不需要在見我之前就想清楚，那正是我們要一起做的事。</p>
+        </div>
+        <div class="about-tags fade-up fade-up-delay-1">
+          <span class="tag tag-rose">CNC 職涯導航諮詢師</span>
+          <span class="tag tag-lav">北藝大 藝術行政碩士</span>
+          <span class="tag tag-sage">臺大 中文系學士</span>
+          <span class="tag tag-rose">課程製作人</span>
+          <span class="tag tag-lav">藝術行政</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE -->
+<section id="service">
+  <div class="section-inner">
+    <div class="service-header fade-up">
+      <p class="section-label">我的服務</p>
+      <h2 class="section-title">你現在卡在<br/><em>哪個環節</em>？</h2>
+      <p class="service-desc">履歷寫不出亮點、面試說不清楚自己、還是根本不知道想去哪？每個卡關的位置，都有對應的方式可以處理。</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card fade-up fade-up-delay-1">
+        <div class="service-icon si-rose">📄</div>
+        <h3 class="service-name">履歷健檢</h3>
+        <p class="service-body">「這份履歷，真的說出了你是誰嗎？」投出去沒有回音，有時候不是你不夠好——是履歷還沒幫你說到點上。</p>
+        <ul class="service-features">
+          <li>逐段提問式深度分析</li>
+          <li>找出你的真正亮點</li>
+          <li>關鍵字與敘事方式優化</li>
+          <li>提供書面修改建議報告</li>
+        </ul>
+      </div>
+
+      <div class="service-card fade-up fade-up-delay-2">
+        <div class="service-icon si-lav">🎤</div>
+        <h3 class="service-name">模擬面試</h3>
+        <p class="service-body">「如果面試官問你這個，你會怎麼回答？」面試不是背稿，是一場有來有往的對話。讓我們先練習，再上場。</p>
+        <ul class="service-features">
+          <li>模擬真實面試提問</li>
+          <li>即時反饋與引導調整</li>
+          <li>練習說出有說服力的自己</li>
+          <li>建立面試的穩定感與自信</li>
+        </ul>
+      </div>
+
+      <div class="service-card fade-up fade-up-delay-3">
+        <div class="service-icon si-sage">🧭</div>
+        <h3 class="service-name">一對一職涯諮詢</h3>
+        <p class="service-body">「如果不考慮薪水和別人的眼光，你真正想做什麼？」透過提問探索你的價值觀、興趣與能力，找出可以走的路。</p>
+        <ul class="service-features">
+          <li>CNC 職涯導航框架引導</li>
+          <li>價值觀 × 興趣 × 能力整合</li>
+          <li>職涯方向釐清與定位</li>
+          <li>具體可執行的行動方案</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-inner">
+    <div class="process-header fade-up">
+      <p class="section-label">諮詢流程</p>
+      <h2 class="section-title">每一步，<em>都有依據</em></h2>
+      <p class="process-desc">從第一次接觸到拿到行動方案，整個過程清楚、有節奏，你不會不知道下一步是什麼。</p>
+    </div>
+
+    <div class="process-steps">
+      <div class="step fade-up fade-up-delay-1">
+        <div class="step-num">01</div>
+        <h3 class="step-title">填寫預約表單</h3>
+        <p class="step-body">簡單說明你目前的狀況——不需要整理好，就算只是一種感覺也可以。我會在 48 小時內回覆。</p>
+      </div>
+      <div class="step fade-up fade-up-delay-2">
+        <div class="step-num">02</div>
+        <h3 class="step-title">確認方向與時間</h3>
+        <p class="step-body">我們透過簡短的書面溝通，確認你的需求與最合適的服務，再安排正式諮詢時間。</p>
+      </div>
+      <div class="step fade-up fade-up-delay-3">
+        <div class="step-num">03</div>
+        <h3 class="step-title">深度諮詢進行</h3>
+        <p class="step-body">全程一對一，我會透過提問引導你思考，不給標準答案——因為最好的答案本來就在你心裡。</p>
+      </div>
+      <div class="step fade-up fade-up-delay-4">
+        <div class="step-num">04</div>
+        <h3 class="step-title">帶走你的行動方案</h3>
+        <p class="step-body">諮詢結束後，你會有清楚的下一步。不是「感覺好多了」，而是「知道我接下來要做什麼」。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust">
+  <div class="section-inner">
+    <div class="trust-grid">
+      <div class="trust-left fade-up">
+        <p class="section-label">為什麼選擇我</p>
+        <h2 class="section-title">我不給答案，<br/>我陪你<em>找到</em>答案</h2>
+        <p class="trust-desc">
+          最好的職涯決定，必須來自你自己的理解——而不是別人告訴你「應該這樣做」。我的工作，是用提問幫你把已經在心裡、但還沒說清楚的東西，一起挖出來。
+        </p>
+        <div class="trust-items">
+          <div class="trust-item">
+            <div class="trust-icon">🎯</div>
+            <div class="trust-item-text">
+              <h4>實務歷練，不只是理論</h4>
+              <p>公部門、大企業、新創都親身待過，能從不同角度理解你的處境，說的都是真實發生過的事。</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">🎬</div>
+            <div class="trust-item-text">
+              <h4>擅長整理複雜的脈絡</h4>
+              <p>製作人出身，最擅長把亂成一團的想法、經歷，整理成一條清楚、有說服力的線。</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">✨</div>
+            <div class="trust-item-text">
+              <h4>結束後，你知道下一步</h4>
+              <p>每次諮詢都有具體可執行的行動方案。你帶走的不只是清晰感，而是真的能走出去的方向。</p>
+            </div>
+          </div>
+        </div>
+        <div class="trust-values fade-up fade-up-delay-1">
+          <div class="value-chip">提問，而不是說教</div>
+          <div class="value-chip">你的節奏，你說了算</div>
+          <div class="value-chip">有憑有據，不是感覺</div>
+          <div class="value-chip">答案由你自己說出口</div>
+        </div>
+      </div>
+
+      <div class="trust-right fade-up fade-up-delay-2">
+        <div class="testimonial-placeholder">
+          <span class="coming-soon-badge">⏳ 即將上線</span>
+          <p>「這裡將會放上真實客戶的心得分享，期待與你共同書寫屬於你的職涯故事。」</p>
+          <div class="testimonial-divider"></div>
+          <p class="testimonial-cta-text">你的心得，可以是下一個人的勇氣來源。<br/>歡迎完成諮詢後留下你的感想 💌</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="contact-left fade-up">
+        <p class="section-label">聯絡我</p>
+        <h2 class="section-title">還不確定？<br/><em>那就先寫來</em></h2>
+        <p class="contact-desc">
+          不需要想清楚才能聯絡我。就算只是一種說不清楚的卡住感，也可以寫下來——釐清，本來就是我們一起做的事。
+        </p>
+        <div class="contact-details">
+          <a href="mailto:pd.roadwu@gmail.com" class="contact-link">
+            <div class="contact-link-icon">✉️</div>
+            <div>
+              <div class="contact-link-text">pd.roadwu@gmail.com</div>
+              <div class="contact-link-label">歡迎來信，48小時內回覆</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form fade-up fade-up-delay-1">
+        <h3 class="form-title">預約諮詢，從這裡開始</h3>
+        <div class="form-group">
+          <label for="name">你的稱呼</label>
+          <input type="text" id="name" placeholder="請輸入你的名字或暱稱" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label for="service">想了解的服務</label>
+          <select id="service">
+            <option value="" disabled selected>請選擇服務項目</option>
+            <option>履歷健檢</option>
+            <option>模擬面試</option>
+            <option>一對一職涯諮詢</option>
+            <option>還不確定，想先聊聊</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">簡單說說你的狀況</label>
+          <textarea id="message" placeholder="例如：不知道自己適合什麼、履歷投出去都沒消息、剛畢業想找行銷但不知道從哪裡開始⋯隨便說都可以"></textarea>
+        </div>
+        <button class="submit-btn" onclick="handleSubmit()">送出預約申請 →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">road<span>.</span></div>
+  <div class="footer-copy">© 2025 Road Wu｜職涯諮詢師｜用提問，陪你找到屬於你的路</div>
+</footer>
+
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+
+  function closeMobile() {
+    mobileMenu.classList.remove('open');
+  }
+
+  // Fade in on scroll
+  const faders = document.querySelectorAll('.fade-up');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  faders.forEach(el => observer.observe(el));
+
+  // Hero elements start visible
+  document.querySelectorAll('#hero .fade-up').forEach(el => {
+    el.classList.add('visible');
+  });
+
+  // Form submit handler
+  function handleSubmit() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const service = document.getElementById('service').value;
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email) {
+      alert('請記得填寫稱呼與 Email，我才能聯絡你 💌');
+      return;
+    }
+
+    const mailtoLink = `mailto:pd.roadwu@gmail.com?subject=職涯諮詢預約－${encodeURIComponent(name)}&body=${encodeURIComponent(
+      `嗨 road！\n\n我是 ${name}，想預約「${service || '待確認'}」的諮詢。\n\n我的狀況：\n${message}\n\n我的 Email：${email}\n\n期待你的回覆！`
+    )}`;
+
+    window.location.href = mailtoLink;
+  }
+
+  // Nav background on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.background = 'rgba(17,27,52,0.92)';
+    } else {
+      nav.style.background = 'rgba(17,27,52,0.6)';
+    }
+  });
+</script>
+</body>
+</html>
