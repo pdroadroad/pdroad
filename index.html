@@ -283,7 +283,7 @@
 
     .btn-ghost:hover { border-color: rgba(255,255,255,0.4); background: var(--white-faint); }
 
-    /* Hero right - illustration */
+    /* Hero right - photo */
     .hero-right {
       position: relative;
       z-index: 2;
@@ -292,101 +292,51 @@
       align-items: center;
     }
 
-    .hero-illustration {
+    .hero-photo-wrap {
       position: relative;
-      width: 380px;
-      height: 420px;
+      width: 340px;
+      height: 340px;
     }
 
-    /* Browser window mockup */
-    .browser-card {
+    /* Decorative ring behind photo */
+    .hero-photo-wrap::before {
+      content: '';
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 320px;
-      height: 280px;
-      background: var(--navy-mid);
-      border-radius: 16px;
-      border: 1px solid var(--white-faint);
-      overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+      inset: -12px;
+      border-radius: 50%;
+      border: 1px solid rgba(232,180,184,0.35);
     }
 
-    .browser-bar {
-      background: rgba(255,255,255,0.06);
-      padding: 0.7rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      border-bottom: 1px solid var(--white-faint);
-    }
-
-    .dot { width: 8px; height: 8px; border-radius: 50%; }
-    .dot-r { background: var(--rose); }
-    .dot-y { background: #f0d48a; }
-    .dot-g { background: var(--sage); }
-
-    .browser-url {
-      flex: 1;
-      height: 22px;
-      background: var(--white-faint);
-      border-radius: 4px;
-      margin-left: 0.5rem;
-    }
-
-    .browser-content {
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .bc-line {
-      height: 10px;
-      border-radius: 5px;
-      background: linear-gradient(90deg, var(--rose) 0%, var(--lavender) 100%);
-      opacity: 0.7;
-    }
-
-    .bc-line-short { width: 60%; }
-
-    .bc-blocks {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-      margin-top: 0.5rem;
-    }
-
-    .bc-block {
-      height: 48px;
-      border-radius: 8px;
-    }
-
-    .bc-rose { background: rgba(232,180,184,0.35); }
-    .bc-lav { background: rgba(201,184,216,0.35); }
-    .bc-sage { background: rgba(184,207,196,0.35); }
-    .bc-cream { background: rgba(242,208,211,0.2); }
-
-    /* Sun character */
-    .sun-char {
+    /* Second outer ring */
+    .hero-photo-wrap::after {
+      content: '';
       position: absolute;
-      bottom: 20px;
-      left: 0;
-      width: 110px;
-      height: 110px;
-      animation: float 4s ease-in-out infinite;
+      inset: -26px;
+      border-radius: 50%;
+      border: 1px dashed rgba(201,184,216,0.2);
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border: 3px solid rgba(232,180,184,0.4);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 0 6px rgba(232,180,184,0.08);
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
+      50% { transform: translateY(-10px); }
     }
 
     /* Floating badge */
     .hero-badge {
       position: absolute;
-      top: 130px;
-      left: -20px;
+      bottom: 30px;
+      left: -30px;
       background: var(--lavender);
       color: var(--navy-deep);
       font-family: var(--font-ui);
@@ -402,9 +352,9 @@
 
     .hero-badge-2 {
       position: absolute;
-      top: 30px;
-      left: 30px;
-      background: rgba(232,180,184,0.2);
+      top: 20px;
+      right: -20px;
+      background: rgba(232,180,184,0.15);
       border: 1px solid var(--rose);
       color: var(--rose-light);
       font-family: var(--font-ui);
@@ -1150,7 +1100,20 @@
 
       .hero-sub { margin: 0 auto 2.5rem; }
 
-      .hero-right { display: none; }
+      /* Show photo below text on mobile */
+      .hero-right {
+        display: flex;
+        order: 2;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .hero-photo-wrap {
+        width: 220px;
+        height: 220px;
+      }
+
+      .hero-left { order: 1; }
 
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
 
@@ -1229,53 +1192,14 @@
   </div>
 
   <div class="hero-right">
-    <div class="hero-illustration">
-      <!-- Browser card -->
-      <div class="browser-card">
-        <div class="browser-bar">
-          <div class="dot dot-r"></div>
-          <div class="dot dot-y"></div>
-          <div class="dot dot-g"></div>
-          <div class="browser-url"></div>
-        </div>
-        <div class="browser-content">
-          <div class="bc-line" style="width:75%"></div>
-          <div class="bc-line bc-line-short" style="background: linear-gradient(90deg, var(--lavender), #ddd3ea);"></div>
-          <div class="bc-blocks">
-            <div class="bc-block bc-rose"></div>
-            <div class="bc-block bc-lav"></div>
-            <div class="bc-block bc-sage"></div>
-            <div class="bc-block bc-cream"></div>
-          </div>
-          <div class="bc-line" style="width:45%; background: linear-gradient(90deg, var(--sage), #d0e4dc); opacity:0.5;"></div>
-        </div>
-      </div>
-
-      <!-- Floating badges -->
+    <div class="hero-photo-wrap">
+      <img
+        src="https://pdroadroad.github.io/pdroad/%E5%B0%8F%E6%AA%94%20Gemini_%E5%81%9A%E7%9A%84%E5%BD%A2%E8%B1%A1%E7%85%A7.webp"
+        alt="road 的形象照"
+        class="hero-photo"
+      />
       <div class="hero-badge">✦ CNC 職涯導航諮詢師</div>
       <div class="hero-badge-2">17 年實務經驗</div>
-
-      <!-- Sun character SVG -->
-      <svg class="sun-char" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
-        <!-- Rays -->
-        <line x1="55" y1="8" x2="55" y2="18" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
-        <line x1="55" y1="92" x2="55" y2="102" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
-        <line x1="8" y1="55" x2="18" y2="55" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
-        <line x1="92" y1="55" x2="102" y2="55" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
-        <line x1="21" y1="21" x2="28" y2="28" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
-        <line x1="82" y1="82" x2="89" y2="89" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
-        <line x1="89" y1="21" x2="82" y2="28" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
-        <line x1="21" y1="89" x2="28" y2="82" stroke="#e8b4b8" stroke-width="3" stroke-linecap="round"/>
-        <!-- Sun body -->
-        <circle cx="55" cy="55" r="28" fill="#f2d0d3"/>
-        <!-- Face -->
-        <circle cx="47" cy="50" r="2.5" fill="#1a2744"/>
-        <circle cx="63" cy="50" r="2.5" fill="#1a2744"/>
-        <path d="M 45 61 Q 55 70 65 61" stroke="#1a2744" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <!-- Blush -->
-        <circle cx="42" cy="60" r="4" fill="#e8b4b8" opacity="0.5"/>
-        <circle cx="68" cy="60" r="4" fill="#e8b4b8" opacity="0.5"/>
-      </svg>
     </div>
   </div>
 
